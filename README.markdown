@@ -21,7 +21,8 @@ If you're using RVM, I recommend extending your global gemset:
 To generate tags for all previously installed gems that don't already
 have a `tags` file, run `gem ctags`.  (If it blows up, upgrade
 RubyGems.)  Future gems will be handled automatically and silently, with
-the sad exception of those installed by Bundler.
+the sad exception of those installed by Bundler (see
+[this issue](https://github.com/carlhuda/bundler/pull/1364)).
 
 Vim Tips
 --------
