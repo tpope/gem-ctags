@@ -31,6 +31,9 @@ If you have [rake.vim][] installed (which, by the way, is a misleading
 name), Vim will already know where to look for the tags file when
 editing a gem.
 
+If you have [bundler.vim][] installed, Vim will be aware of all tags
+files from all gems in your bundle.
+
 If you want to get crazy, add this to your vimrc to get Vim to search
 all gems in your current RVM gemset (requires [pathogen.vim][]):
 
@@ -54,5 +57,6 @@ License
 Copyright (c) Tim Pope.  MIT License.
 
 [Exuberant Ctags]: http://ctags.sourceforge.net/
+[bundler.vim]: https://github.com/tpope/vim-bundler
 [pathogen.vim]: https://github.com/tpope/vim-pathogen
 [rake.vim]: https://github.com/tpope/vim-rake
