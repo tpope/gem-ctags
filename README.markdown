@@ -14,9 +14,9 @@ Installation
 Now all that's left to do is install [Exuberant Ctags][] and make sure
 it comes first in `$PATH`.  With Homebrew, `brew install ctags`.
 
-If you're using RVM, I recommend extending your global gemset:
-
-    echo gem-ctags >> ~/.rvm/gemsets/global.gems
+If you're using RVM, I recommend extending your global gemset by adding
+`gem-ctags` to `~/.rvm/gemsets/global.gems`.  Put it at the top so the
+gems below it will be indexed.
 
 To generate tags for all previously installed gems that don't already
 have a `tags` file, run `gem ctags`.  (If it blows up, upgrade
