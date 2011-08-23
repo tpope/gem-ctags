@@ -23,6 +23,9 @@ have a `tags` file, run `gem ctags`.  (If it blows up, upgrade
 RubyGems.)  Future gems will be handled automatically and silently, with
 the sad exception of those installed by Bundler (see
 [this issue](https://github.com/carlhuda/bundler/pull/1364)).
+Temporary workaround:
+
+    echo Gem.load_plugins >> "$(gem which bundler/cli)"
 
 Vim Tips
 --------
