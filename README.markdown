@@ -1,10 +1,11 @@
 RubyGems Automatic Ctags Invoker
 ================================
 
-Nary a day of Ruby development goes by where I don't run `gem open`.
-And when I do, I want tags.  As good as I've gotten at `ctags -R .`,
-I've grown weary of it.  So I wrote a RubyGems plugin to automatically
-invoke Ctags every time a Gem is installed.
+Nary a day of Ruby development goes by where I don't run `bundle open`
+or `gem open`.  And when I go rooting around in a gem, I want tags.  As
+good as I've gotten at `ctags -R .`, I've grown weary of it.  So I wrote
+a RubyGems plugin to automatically invoke Ctags on gems as they are
+installed.
 
 Installation
 ------------
