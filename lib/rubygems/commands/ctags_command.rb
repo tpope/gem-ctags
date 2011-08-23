@@ -6,7 +6,11 @@ class Gem::Commands::CtagsCommand < Gem::Command
   end
 
   def execute
-    Gem::Specification.each do |spec|
+    if Gem::Specification.respond_to?(:each)
+      Gem::Specification
+    else
+      Gem.source_index.gems.values
+    end.each do |spec|
       self.class.index(spec) do
         say "Generating ctags for #{spec.full_name}"
       end
