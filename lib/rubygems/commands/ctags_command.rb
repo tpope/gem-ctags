@@ -17,7 +17,7 @@ class Gem::Commands::CtagsCommand < Gem::Command
     Dir.chdir(spec.full_gem_path) do
       unless File.exist?('tags')
         yield if block_given?
-        system('ctags', '-R', *spec.require_paths)
+        system('ctags', '-R', '--languages=ruby', *spec.require_paths)
       end
     end
   end
