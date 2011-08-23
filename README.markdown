@@ -9,24 +9,17 @@ installed.
 
 Installation
 ------------
+If you haven't already, install [Exuberant Ctags][] and make sure it
+comes first in `$PATH`.  With Homebrew, `brew install ctags`.  Now all
+that's left to do is install gem-ctags and perform a one-off indexing of
+the gems that are already installed:
 
     gem install gem-ctags
-
-Now all that's left to do is install [Exuberant Ctags][] and make sure
-it comes first in `$PATH`.  With Homebrew, `brew install ctags`.
+    gem ctags
 
 If you're using RVM, I recommend extending your global gemset by adding
 `gem-ctags` to `~/.rvm/gemsets/global.gems`.  Put it at the top so the
 gems below it will be indexed.
-
-To generate tags for all previously installed gems that don't already
-have a `tags` file, run `gem ctags`.  Future gems will be handled
-automatically and silently, with the sad exception of those installed by
-Bundler (see [this
-issue](https://github.com/carlhuda/bundler/pull/1364)).
-Temporary workaround:
-
-    echo Gem.load_plugins >> "$(gem which bundler/cli)"
 
 Vim Tips
 --------
