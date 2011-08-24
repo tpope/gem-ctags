@@ -27,7 +27,7 @@ class Gem::Commands::CtagsCommand < Gem::Command
       end
 
       target = 'lib/bundler/cli.rb'
-      if File.exist?(target) && File.read(target) !~ /plugin/
+      if File.writable?(target) && !File.read(target).include?('plugin')
         yield "Injecting gem-ctags into #{spec.full_name}" if block_given?
         File.open(target, 'a') do |f|
           f.write "\nGem.load_plugins rescue nil\n"
