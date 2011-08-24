@@ -34,6 +34,6 @@ class Gem::Commands::CtagsCommand < Gem::Command
         end
       end
 
-    end if File.directory?(spec.full_gem_path)
+    end
   end
 end
