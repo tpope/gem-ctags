@@ -1,14 +1,15 @@
 RubyGems Automatic Ctags Invoker
 ================================
 
-Nary a day of Ruby development goes by where I don't run `bundle open`
-or `gem open`.  And when I go rooting around in a gem, I want tags.  As
-good as I've gotten at `ctags -R .`, I've grown weary of it.  So I wrote
-a RubyGems plugin to automatically invoke Ctags on gems as they are
-installed.
+Nary a day of Ruby development goes by where I don't run
+[`gem open`][gem-edit] or `bundle open`.  And when I go rooting around
+in a gem, I want tags.  As good as I've gotten at `ctags -R .`, I've
+grown weary of it.  So I wrote a RubyGems plugin to automatically invoke
+Ctags on gems as they are installed.
 
 Installation
 ------------
+
 If you haven't already, install [Exuberant Ctags][] and make sure it
 comes first in `$PATH`.  With Homebrew, `brew install ctags`.  Now all
 that's left to do is install gem-ctags and perform a one-off indexing of
@@ -23,6 +24,9 @@ gems below it will be indexed.
 
 Vim Tips
 --------
+
+To easily edit a gem with your current working directory set to the
+gem's root, install [gem-edit][].
 
 If you have [rake.vim][] installed (which, by the way, is a misleading
 name), Vim will already know where to look for the tags file when
@@ -54,6 +58,7 @@ License
 Copyright (c) Tim Pope.  MIT License.
 
 [Exuberant Ctags]: http://ctags.sourceforge.net/
+[gem-edit]: https://github.com/tpope/gem-edit
 [bundler.vim]: https://github.com/tpope/vim-bundler
 [pathogen.vim]: https://github.com/tpope/vim-pathogen
 [rake.vim]: https://github.com/tpope/vim-rake
