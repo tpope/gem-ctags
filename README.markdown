@@ -2,7 +2,7 @@ RubyGems Automatic Ctags Invoker
 ================================
 
 Nary a day of Ruby development goes by where I don't run
-[`gem open`][gem-edit] or `bundle open`.  And when I go rooting around
+[`gem open`][gem-browse] or `bundle open`.  And when I go rooting around
 in a gem, I want tags.  As good as I've gotten at `ctags -R .`, I've
 grown weary of it.  So I wrote a RubyGems plugin to automatically invoke
 Ctags on gems as they are installed.
@@ -26,7 +26,7 @@ Vim Tips
 --------
 
 To easily edit a gem with your current working directory set to the
-gem's root, install [gem-edit][].
+gem's root, install [gem-browse][].
 
 If you have [rake.vim][] installed (which, by the way, is a misleading
 name), Vim will already know where to look for the tags file when
@@ -58,7 +58,7 @@ License
 Copyright (c) Tim Pope.  MIT License.
 
 [Exuberant Ctags]: http://ctags.sourceforge.net/
-[gem-edit]: https://github.com/tpope/gem-edit
+[gem-browse]: https://github.com/tpope/gem-browse
 [bundler.vim]: https://github.com/tpope/vim-bundler
 [pathogen.vim]: https://github.com/tpope/vim-pathogen
 [rake.vim]: https://github.com/tpope/vim-rake
