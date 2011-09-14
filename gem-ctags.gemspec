@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name        = "gem-ctags"
   s.version     = "1.0.2"
   s.authors     = ["Tim Pope"]
-  s.email       = ["ruby@tpop"+'e.org']
+  s.email       = ["code@tpop"+'e.net']
   s.homepage    = "https://github.com/tpope/gem-ctags"
   s.summary     = %q{Automatic ctags generation on gem install}
 
