@@ -20,7 +20,7 @@ class Gem::Commands::CtagsCommand < Gem::Command
   def self.index(spec)
     Dir.chdir(spec.full_gem_path) do
 
-      unless File.exist?('tags')
+      if !File.exist?('tags') || File.read('tags', 1) != '!'
         yield "Generating ctags for #{spec.full_name}" if block_given?
         paths = spec.require_paths.select { |p| File.directory?(p) }
         system('ctags', '-R', '--languages=ruby', *paths)
