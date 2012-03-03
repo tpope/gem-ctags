@@ -18,6 +18,8 @@ class Gem::Commands::CtagsCommand < Gem::Command
   end
 
   def self.index(spec)
+    return unless File.directory?(spec.full_gem_path)
+
     Dir.chdir(spec.full_gem_path) do
 
       if !File.exist?('tags') || File.read('tags', 1) != '!'
