@@ -22,6 +22,22 @@ If you're using RVM, I recommend extending your global gemset by adding
 `gem-ctags` to `~/.rvm/gemsets/global.gems`.  Put it at the top so the
 gems below it will be indexed.
 
+Troubleshooting
+---------------
+
+If you see
+
+    $ ctags -R
+    ctags: illegal option -- R
+    usage: ctags [-BFadtuwvx] [-f tagsfile] file ...
+
+you do not have the correct version of ctags in your path.
+
+Just add the following to your .bashrc and be happy:
+
+    export PATH=/usr/local/bin:$PATH
+    
+
 Vim Tips
 --------
 
