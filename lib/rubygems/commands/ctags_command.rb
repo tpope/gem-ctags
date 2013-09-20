@@ -37,5 +37,8 @@ class Gem::Commands::CtagsCommand < Gem::Command
       end
 
     end
+  rescue => e
+    raise unless block_given?
+    yield "Failed processing ctags for #{spec.full_name}:\n  (#{e.class}) #{e}"
   end
 end
