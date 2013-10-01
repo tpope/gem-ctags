@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.email       = ["code@tpop"+'e.net']
   s.homepage    = "https://github.com/tpope/gem-ctags"
   s.summary     = %q{Automatic ctags generation on gem install}
+  s.license     = 'MIT'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
