@@ -1,3 +1,4 @@
+require 'pathname'
 require 'rubygems/command'
 
 class Gem::Commands::CtagsCommand < Gem::Command
