@@ -24,9 +24,15 @@ class Gem::Commands::CtagsCommand < Gem::Command
     if !(File.file?(tag_file) && File.read(tag_file, 1) == '!') && !File.directory?(tag_file)
       yield "Generating ctags for #{spec.full_name}" if block_given?
       paths = spec.require_paths.
-        map { |p| File.expand_path(p, spec.full_gem_path) }.
+        map { |p|
+          Pathname.new(File.join(spec.full_gem_path, p)).
+            relative_path_from(Pathname.pwd).to_s
+        }.
         select { |p| File.directory?(p) }
-      system('ctags', '-R', '--languages=ruby', '-f', tag_file, *paths)
+      system(
+        'ctags', '-R', '--languages=ruby', '-f', tag_file, '--tag-relative=yes',
+        *paths
+      )
     end
 
     target = File.expand_path('lib/bundler/cli.rb', spec.full_gem_path)
