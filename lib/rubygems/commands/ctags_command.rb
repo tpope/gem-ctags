@@ -20,22 +20,21 @@ class Gem::Commands::CtagsCommand < Gem::Command
   def self.index(spec)
     return unless File.directory?(spec.full_gem_path)
 
-    Dir.chdir(spec.full_gem_path) do
+    tag_file = File.expand_path('tags', spec.full_gem_path)
+    if !(File.file?(tag_file) && File.read(tag_file, 1) == '!') && !File.directory?(tag_file)
+      yield "Generating ctags for #{spec.full_name}" if block_given?
+      paths = spec.require_paths.
+        map { |p| File.expand_path(p, spec.full_gem_path) }.
+        select { |p| File.directory?(p) }
+      system('ctags', '-R', '--languages=ruby', '-f', tag_file, *paths)
+    end
 
-      if !(File.file?('tags') && File.read('tags', 1) == '!') && !File.directory?('tags')
-        yield "Generating ctags for #{spec.full_name}" if block_given?
-        paths = spec.require_paths.select { |p| File.directory?(p) }
-        system('ctags', '-R', '--languages=ruby', *paths)
+    target = File.expand_path('lib/bundler/cli.rb', spec.full_gem_path)
+    if File.writable?(target) && !File.read(target).include?('load_plugins')
+      yield "Injecting gem-ctags into #{spec.full_name}" if block_given?
+      File.open(target, 'a') do |f|
+        f.write "\nGem.load_plugins rescue nil\n"
       end
-
-      target = 'lib/bundler/cli.rb'
-      if File.writable?(target) && !File.read(target).include?('load_plugins')
-        yield "Injecting gem-ctags into #{spec.full_name}" if block_given?
-        File.open(target, 'a') do |f|
-          f.write "\nGem.load_plugins rescue nil\n"
-        end
-      end
-
     end
   rescue => e
     raise unless block_given?
