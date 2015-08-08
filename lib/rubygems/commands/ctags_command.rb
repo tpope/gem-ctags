@@ -31,7 +31,7 @@ class Gem::Commands::CtagsCommand < Gem::Command
         }.
         select { |p| File.directory?(p) }
       system(
-        'ctags', '-R', '--languages=ruby', '-f', tag_file, '--tag-relative=yes',
+        'ctags', '-R', '--languages=ruby', '--fields=+l', '-f', tag_file, '--tag-relative=yes',
         *paths
       )
     end
