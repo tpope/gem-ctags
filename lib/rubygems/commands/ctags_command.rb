@@ -32,7 +32,7 @@ class Gem::Commands::CtagsCommand < Gem::Command
         select { |p| File.directory?(p) }
       paths = [spec.full_gem_path] if paths.empty?
       system(
-        'ctags', '-R', '--languages=ruby', '--fields=+l', '-f', tag_file, '--tag-relative=yes',
+        'ctags', '--languages=Ruby', '-R', '--tag-relative=yes', '-f', tag_file,
         *paths
       )
     end
