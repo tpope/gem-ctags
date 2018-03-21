@@ -64,9 +64,8 @@ Contributing
 ------------
 
 Don't submit a pull request with [an ugly commit
-message](http://stopwritingramblingcommitmessages.com) or I will ignore
-your patch until I have the energy to politely explain my zero tolerance
-policy.
+message](https://commit.style/) or I will ignore your patch until I have the
+energy to politely explain my zero tolerance policy.
 
 License
 -------
