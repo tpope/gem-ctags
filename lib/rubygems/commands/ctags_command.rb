@@ -16,29 +16,42 @@ class Gem::Commands::CtagsCommand < Gem::Command
     end
   end
 
-  def self.index(spec)
-    return unless File.directory?(spec.full_gem_path)
+  def self.invoke(languages, tag_file, *paths)
+    system(
+      'ctags',
+      "--languages=#{languages}",
+      '-R',
+      '--tag-relative=yes',
+      '-f',
+      tag_file.to_s,
+      *paths.map { |p| Pathname.new(p).relative_path_from(Pathname.pwd).to_s }
+    )
+  end
 
-    tag_file = File.expand_path('tags', spec.full_gem_path)
-    if !(File.file?(tag_file) && File.read(tag_file, 1) == '!') && !File.directory?(tag_file)
+  def self.can_write?(path)
+    path.dirname.directory? && !path.directory? &&
+      !(path.file? && path.read(1) == '!')
+  end
+
+  def self.index(spec, ui = nil)
+    gem_path = Pathname.new(spec.full_gem_path)
+
+    tag_file = gem_path.join('tags')
+    paths =
+      if spec.require_paths.empty?
+        [gem_path]
+      else
+        spec.require_paths.map { |p| gem_path.join(p) }
+      end
+    if can_write?(tag_file)
       ui.say "Generating ctags for #{spec.full_name}" if ui
-      paths = spec.require_paths.
-        map { |p|
-          Pathname.new(File.join(spec.full_gem_path, p)).
-            relative_path_from(Pathname.pwd).to_s
-        }.
-        select { |p| File.directory?(p) }
-      paths = [spec.full_gem_path] if paths.empty?
-      system(
-        'ctags', '--languages=Ruby', '-R', '--tag-relative=yes', '-f', tag_file,
-        *paths
-      )
+      invoke('Ruby', tag_file, *paths)
     end
 
-    target = File.expand_path('lib/bundler/cli.rb', spec.full_gem_path)
-    if File.writable?(target) && !File.read(target).include?('load_plugins')
+    target = gem_path.join('lib/bundler/cli.rb')
+    if target.writable? && !target.read.include?('load_plugins')
       ui.say "Injecting gem-ctags into #{spec.full_name}" if ui
-      File.open(target, 'a') do |f|
+      target.open('a') do |f|
         f.write "\nGem.load_plugins rescue nil\n"
       end
     end
