@@ -12,9 +12,7 @@ class Gem::Commands::CtagsCommand < Gem::Command
     else
       Gem.source_index.gems.values
     end.each do |spec|
-      self.class.index(spec) do |message|
-        say message
-      end
+      self.class.index(spec, ui)
     end
   end
 
@@ -23,7 +21,7 @@ class Gem::Commands::CtagsCommand < Gem::Command
 
     tag_file = File.expand_path('tags', spec.full_gem_path)
     if !(File.file?(tag_file) && File.read(tag_file, 1) == '!') && !File.directory?(tag_file)
-      yield "Generating ctags for #{spec.full_name}" if block_given?
+      ui.say "Generating ctags for #{spec.full_name}" if ui
       paths = spec.require_paths.
         map { |p|
           Pathname.new(File.join(spec.full_gem_path, p)).
@@ -39,13 +37,13 @@ class Gem::Commands::CtagsCommand < Gem::Command
 
     target = File.expand_path('lib/bundler/cli.rb', spec.full_gem_path)
     if File.writable?(target) && !File.read(target).include?('load_plugins')
-      yield "Injecting gem-ctags into #{spec.full_name}" if block_given?
+      ui.say "Injecting gem-ctags into #{spec.full_name}" if ui
       File.open(target, 'a') do |f|
         f.write "\nGem.load_plugins rescue nil\n"
       end
     end
   rescue => e
-    raise unless block_given?
-    yield "Failed processing ctags for #{spec.full_name}:\n  (#{e.class}) #{e}"
+    raise unless ui
+    ui.say "Failed processing ctags for #{spec.full_name}:\n  (#{e.class}) #{e}"
   end
 end
