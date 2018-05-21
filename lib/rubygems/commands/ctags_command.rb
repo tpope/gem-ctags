@@ -37,13 +37,8 @@ class Gem::Commands::CtagsCommand < Gem::Command
     gem_path = Pathname.new(spec.full_gem_path)
 
     tag_file = gem_path.join('tags')
-    paths =
-      if spec.require_paths.empty?
-        [gem_path]
-      else
-        spec.require_paths.map { |p| gem_path.join(p) }
-      end
-    if can_write?(tag_file)
+    paths = spec.require_paths.map { |p| gem_path.join(p) }
+    if paths.any? && can_write?(tag_file)
       ui.say "Generating ctags for #{spec.full_name}" if ui
       invoke('Ruby', tag_file, *paths)
     end
